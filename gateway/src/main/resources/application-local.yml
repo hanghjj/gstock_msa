@@ -1,0 +1,36 @@
+Gserver:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      force-response: true
+spring:
+  hikari:
+    connection-timeout: 100000
+    validation-timeout: 100000
+    idle-timeout: 100000
+    max-lifetime: 420000
+  cloud:
+    gateway:
+      routes:
+        - id: stock_route
+          uri: http://localhost:8083
+          predicates:
+            - Path=/api/stock/**
+        - id: kis_route
+          uri: http://localhost:8081
+          predicates:
+            - Path=/kis/**
+        - id: core_route
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/comm/**
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  thymeleaf:
+    prefix: classpath:/static/

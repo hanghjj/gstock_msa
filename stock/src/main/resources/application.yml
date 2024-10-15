@@ -1,0 +1,5 @@
+spring:
+    application:
+        name:   gstock_stock
+    profiles:
+        active: local  # 기본 프로파일 설정

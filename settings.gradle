@@ -1,0 +1,8 @@
+rootProject.name = 'gstock_msa'
+
+include 'gateway'
+include 'core'
+include 'kis'
+include 'stock'
+include 'coin'
+include 'portfolio'

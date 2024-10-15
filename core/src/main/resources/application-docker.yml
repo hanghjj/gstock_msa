@@ -1,0 +1,45 @@
+jpa:
+  hibernate:
+    ddl-auto: create
+  properties:
+    hibernate:
+      format_sql: true
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      force-response: true
+servlet:
+  servlet:
+    register-default-servlet: true
+spring:
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: jdbc:oracle:thin:@gsdb1_high?TNS_ADMIN=/app/wallet
+    username: ADMIN
+    password: '@dminPassword1234!'
+  hikari:
+    connection-timeout: 100000
+    validation-timeout: 100000
+    idle-timeout: 100000
+    max-lifetime: 420000
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        use_Sql_comments: true
+  main:
+    allow-bean-definition-overriding: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  thymeleaf:
+    prefix: classpath:/static/
