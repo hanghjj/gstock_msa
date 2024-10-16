@@ -1,6 +1,7 @@
 package com.gstock.coin.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.gstock.coin.client.CoinOneClient;
 import com.gstock.coin.dto.CoinDto;
 import com.gstock.coin.entity.Coin;
 import com.gstock.coin.entity.CoinPrice;
@@ -26,6 +27,7 @@ public class CoinServiceImpl implements CoinService {
     private final CoinRepository repository;
     private final CoinPriceRepository priceRepository;
     private final CoinObjectMappingService mappingService;
+    private final CoinOneClient coinOneClient;
 
     @Override
     public CoinDto getCoin(String ticker) throws CustomException {
@@ -56,5 +58,36 @@ public class CoinServiceImpl implements CoinService {
     public void saveCoin(CoinDto coin) {
         repository.save(new Coin(coin));
         priceRepository.save(new CoinPrice(coin));
+    }
+
+    @Override
+    public CoinDto getCoinPrice(String ticker) {
+        String jsonString = coinOneClient.getCoinPrice(ticker);
+        CoinDto coinDto;
+        try{
+            String target = new JSONObject(jsonString).getJSONArray("tickers").get(0).toString();
+            coinDto = mappingService.ConvertCoinOneDtoToCoinDto(target);
+        }catch (JSONException | JsonProcessingException e) {
+            throw new CustomException("coin.search.fail");
+        }
+        coinDto.setTicker(ticker);
+        return coinDto;
+    }
+
+    @Override
+    public CoinDto getCoinInfo(String ticker) {
+        String jsonString = coinOneClient.getCoinInfo(ticker);
+        CoinDto coinDto = new CoinDto();
+        try{
+            String target = new JSONObject(jsonString).getJSONArray("currencies").get(0).toString();
+            JSONObject currencyInfo = new JSONObject(target);
+            String name = currencyInfo.getString("name");
+            String symbol = currencyInfo.getString("symbol");
+            coinDto.setItmNm(name);
+            coinDto.setTicker(symbol);
+        }catch (JSONException  e) {
+            throw new CustomException("coin.search.fail");
+        }
+        return coinDto;
     }
 }

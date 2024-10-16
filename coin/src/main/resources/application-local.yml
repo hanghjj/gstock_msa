@@ -56,5 +56,5 @@ feign:
           backoff:
             period: 1000
             maxPeriod: 5000
-    coinoneClient:
-      url: http://localhost:8082/api/comm
+    CoinOneClient:
+      url: https://api.coinone.co.kr/public/v2

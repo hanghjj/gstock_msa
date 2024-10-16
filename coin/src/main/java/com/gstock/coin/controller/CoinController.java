@@ -1,6 +1,5 @@
 package com.gstock.coin.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gstock.coin.dto.CoinDto;
 import com.gstock.coin.service.CoinService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +23,11 @@ public class CoinController {
     @GetMapping("/inquiry/{ticker}")
     @Operation(summary = "코인정보 조회", description = "코인명, 현재시세 조회")
     @Tag(name = "Coin")
-    public ResponseEntity<CoinDto> getCoinInfo(@Parameter(name = "ticker", description = "티커")  @PathVariable String ticker) throws JsonProcessingException {
-        return ResponseEntity.ok(coinService.getCoin(ticker));
+    public ResponseEntity<CoinDto> getCoinInfo(@Parameter(name = "ticker", description = "티커")  @PathVariable(value = "ticker") String ticker) {
+        CoinDto result = coinService.getCoinPrice(ticker);
+        CoinDto info = coinService.getCoinInfo(ticker);
+        result.setItmNm(info.getItmNm());
+        coinService.saveCoin(result);
+        return ResponseEntity.ok(result);
     }
 }
