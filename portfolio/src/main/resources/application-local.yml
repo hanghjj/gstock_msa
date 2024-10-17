@@ -43,3 +43,19 @@ spring:
       matching-strategy: ant_path_matcher
   thymeleaf:
     prefix: classpath:/static/
+feign:
+  client:
+    config:
+      log-client:
+        loggerLevel: FULL
+        retryer:
+          maxAttempts: 5
+          backoff:
+            period: 1000
+            maxPeriod: 5000
+    CoreClient:
+      url: http://localhost:8082/api/comm
+    StockClient:
+      url: http://localhost:8083/api/stock
+    CoinClient:
+      url: http://localhost:8084/api/coin

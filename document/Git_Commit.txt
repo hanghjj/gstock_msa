@@ -1,0 +1,19 @@
+✨ Feat
+
+🔨 Fix
+
+⭐ Style
+
+🧠 Refactor
+
+📁 File
+
+🎨 Design
+
+💭 Comment
+
+🍎 Chore
+
+📝 Docs
+
+🔥 Hotfix

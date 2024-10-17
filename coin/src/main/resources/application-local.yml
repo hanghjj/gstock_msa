@@ -58,3 +58,5 @@ feign:
             maxPeriod: 5000
     CoinOneClient:
       url: https://api.coinone.co.kr/public/v2
+    CoreClient:
+      url: http://localhost:8082/api/comm

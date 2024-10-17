@@ -1,0 +1,26 @@
+Docker 관련 명령어
+
+1. 로그인
+docker login -u [username]
+
+2. Dockerfile 기반 이미지 빌드
+docker build -t [username]/[imagename] .
+
+3. Hub 업로드
+docker push [username]/[imagename] 
+
+4. Hub에 올라간 이미지 pull 받기 
+docker pull [username]/[imagename]:latest 
+
+5. Docker Container에서 pull 받은 이미지 실행하기
+docker run -d -p 8080:8080 [username]/[imagename]:latest 
+
+6. 실행되고 있는 컨테이너 중지하기
+docker stop [username]/[imagename]:latest 
+
+7. 현재 실행되고 있는 프로세스 확인하기
+docker ps
+
+8. 선택한 컨테이너 로그 확인하기
+docker log [containername]
+sudo docker logs --tail 10 -f [containername]
