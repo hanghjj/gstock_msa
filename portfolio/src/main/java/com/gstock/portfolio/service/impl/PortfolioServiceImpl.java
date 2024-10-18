@@ -1,6 +1,5 @@
 package com.gstock.portfolio.service.impl;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.gstock.gutils.exception.CustomException;
 import com.gstock.gutils.util.StringUtils;
 import com.gstock.portfolio.clients.CoinClient;
@@ -60,29 +59,28 @@ public class PortfolioServiceImpl implements PortfolioService {
     }
 
     @Override
-    public PortfolioDto getLatestPrice(PortfolioDto dto){
+    public PortfolioDto getLatestPrice(PortfolioDto dto) throws CustomException {
         String asstSeCd = dto.getAsstSeCd();
         String ticker = dto.getTicker();
         Double qty = dto.getQty();
         double pcsPce = new BigDecimal(dto.getAvgPcsPce() * qty).doubleValue(); //매수평균가 * 수량 = 매수금액
         switch (asstSeCd) {
-            case ASSET_STOCK:
+            case ASSET_STOCK -> {
                 StockDto stockDto = stockClient.getStockInfo(ticker);
                 double mktPce = new BigDecimal(stockDto.getStkPrpr() * qty).doubleValue();//주식현재가 * 수량 = 평가금액
                 dto.setMktPce(mktPce);
                 dto.setMktPnl(mktPce - pcsPce);
-                break;
-            case ASSET_COIN:
+            }
+            case ASSET_COIN -> {
                 CoinDto coinDto = coinClient.getCoinInfo(ticker);
-                mktPce = new BigDecimal(coinDto.getPrpr() * qty).doubleValue();//코인현재가 * 수량 = 평가금액
+                double mktPce = new BigDecimal(coinDto.getPrpr() * qty).doubleValue();//코인현재가 * 수량 = 평가금액
                 dto.setMktPce(mktPce);
                 dto.setMktPnl(mktPce - pcsPce);
-                break;
-            case ASSET_USD:
-            case ASSET_KRW:
+            }
+            case ASSET_USD, ASSET_KRW -> {
                 dto.setMktPce(pcsPce);
                 dto.setMktPnl(0d);
-                break;
+            }
         }
         return dto;
     }
