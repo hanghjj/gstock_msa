@@ -1,4 +1,4 @@
-Gserver:
+server:
   port: 8080
   servlet:
     encoding:
@@ -22,11 +22,19 @@ spring:
         - id: kis_route
           uri: http://localhost:8081
           predicates:
-            - Path=/kis/**
+            - Path=/api/kis/**
         - id: core_route
           uri: http://localhost:8082
           predicates:
             - Path=/api/comm/**
+        - id: coin_route
+          uri: http://localhost:8084
+          predicates:
+            - Path=/api/coin/**
+        - id: portfolio_route
+          uri: http://localhost:8085
+          predicates:
+            - Path=/api/portfolio/**
   main:
     allow-bean-definition-overriding: true
   mvc:

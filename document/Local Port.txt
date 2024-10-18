@@ -1,8 +1,9 @@
 Localhost 포트번호
 
-GATEWAY   8080
-KIS       8081
-CORE      8082
-STOCK     8083
-COIN 	  8084
+GATEWAY    8080
+KIS               8081
+CORE           8082
+STOCK         8083
+COIN 	       8084
 PORTFOLIO 8085
+EUREKA       8761

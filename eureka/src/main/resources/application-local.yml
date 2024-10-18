@@ -1,0 +1,25 @@
+server:
+  port: 8761
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+      force-response: true
+spring:
+  hikari:
+    connection-timeout: 100000
+    validation-timeout: 100000
+    idle-timeout: 100000
+    max-lifetime: 420000
+  cloud:
+    discovery:
+      enabled: true  # 서비스 발견 활성화
+  eureka:
+    client:
+      register-with-eureka: false  # 이 서버는 자신을 등록하지 않음
+      fetch-registry: false  # 다른 서버의 레지스트리를 가져오지 않음
+    server:
+      enable-self-preservation: false
+  main:
+    allow-bean-definition-overriding: true
