@@ -21,6 +21,13 @@ servlet:
   servlet:
     register-default-servlet: true
 spring:
+  doc:
+    api-docs:
+      path: /v3/api-docs
+      enabled: true
+    swagger-ui:
+      enabled: true
+      path: /swagger-ui.html
   datasource:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     url: jdbc:oracle:thin:@gsdb1_high?TNS_ADMIN=./src/main/resources/wallet
@@ -36,13 +43,13 @@ spring:
       hibernate:
         show_sql: true
         use_Sql_comments: true
+  cloud:
+    discovery:
+      client:
+        serviceUrl:
+          defaultZone: http://localhost:8761/eureka/
   main:
     allow-bean-definition-overriding: true
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-  thymeleaf:
-    prefix: classpath:/static/
 feign:
   client:
     config:

@@ -33,9 +33,16 @@ public class CommonServiceImpl implements CommonService {
     @Override
     public void insertMsgCd(MsgCd msgCd) throws CustomException {
         String code = msgCd.getCode();
-        if (!code.equals(Optional.ofNullable(selectMsgCd(code)).orElse(new MsgCd()).getCode())) em.persist(msgCd);
+        if (!code.equals(findMsgCd(code))) em.persist(msgCd);
         else throw new CustomException("message.duplicate.error");
+    }
 
+
+    public String findMsgCd(String cd){
+        return repository.findByCode(cd).stream()
+                .findAny()
+                .map(MsgCd::getCode)
+                .orElse("");
     }
 
     @Override

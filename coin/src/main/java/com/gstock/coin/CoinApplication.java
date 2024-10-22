@@ -8,9 +8,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @SpringBootApplication(exclude = SecurityAutoConfiguration.class)
 @EnableFeignClients
 public class CoinApplication {
-
 	public static void main(String[] args) {
 		SpringApplication.run(CoinApplication.class, args);
 	}
-
 }

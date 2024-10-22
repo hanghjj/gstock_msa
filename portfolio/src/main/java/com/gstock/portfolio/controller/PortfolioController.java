@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,6 +24,7 @@ import java.util.List;
 @AllArgsConstructor
 @Tag(name = "Portfolio", description = "포트폴리오 관련 API")
 @RequestMapping("/api/portfolio")
+@CrossOrigin(origins = "http://localhost:8080")
 public class PortfolioController {
     private final PortfolioService service;
 

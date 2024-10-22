@@ -6,39 +6,64 @@ server:
       enabled: true
       force: true
       force-response: true
-spring:
   hikari:
     connection-timeout: 100000
     validation-timeout: 100000
     idle-timeout: 100000
     max-lifetime: 420000
+spring:
   cloud:
+    discovery:
+      client:
+        serviceUrl:
+          defaultZone: http://localhost:8761/eureka/
     gateway:
       routes:
         - id: stock_route
           uri: http://localhost:8083
           predicates:
             - Path=/api/stock/**
+          filters:
+            - RewritePath=/api/stock/(?<segment>.*), /${segment}
         - id: kis_route
           uri: http://localhost:8081
           predicates:
             - Path=/api/kis/**
+          filters:
+            - RewritePath=/api/kis/(?<segment>.*), /${segment}
         - id: core_route
           uri: http://localhost:8082
           predicates:
             - Path=/api/comm/**
+          filters:
+            - RewritePath=/api/comm/(?<segment>.*), /${segment}
         - id: coin_route
           uri: http://localhost:8084
           predicates:
             - Path=/api/coin/**
+          filters:
+            - RewritePath=/api/coin/(?<segment>.*), /${segment}
         - id: portfolio_route
           uri: http://localhost:8085
           predicates:
             - Path=/api/portfolio/**
+          filters:
+            - RewritePath=/api/portfolio/(?<segment>.*), /${segment}
   main:
     allow-bean-definition-overriding: true
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-  thymeleaf:
-    prefix: classpath:/static/
+
+springdoc:
+    swagger-ui:
+     use-root-path: true
+     enabled: true
+     urls:
+       - name: KIS
+         url: /api/kis/v3/api-docs  # Gateway 경유
+       - name: CORE
+         url: /api/comm/v3/api-docs  # Gateway 경유
+       - name: STOCK
+         url: /api/stock/v3/api-docs  # Gateway 경유
+       - name: COIN
+         url: /api/coin/v3/api-docs  # Gateway 경유
+       - name: PORTFOLIO
+         url: /api/portfolio/v3/api-docs  # Gateway 경유

@@ -1,26 +1,24 @@
 package com.gstock.core.config;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
-import lombok.RequiredArgsConstructor;
-import org.springdoc.core.models.GroupedOpenApi;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@OpenAPIDefinition(
-        info = @Info(title = "Gstock Core API",
-                description = "Gstock 코어 API 문서",
-                version = "v1"))
-@RequiredArgsConstructor
 @Configuration
 public class SwaggerConfiguration {
     @Bean
-    public GroupedOpenApi OpenApi() {
-        String[] paths = {"/**"};
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .components(new Components())
+                .info(apiInfo());
+    }
 
-        return GroupedOpenApi.builder()
-                .group("Gstock Core API")
-                .pathsToMatch(paths)
-                .build();
+    private Info apiInfo() {
+        return new Info()
+                .title("GStock Core")					// API 제목
+                .description("GStock Core API")	// API에 대한 설명
+                .version("1.0.0");
     }
 }

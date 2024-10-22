@@ -1,26 +1,23 @@
 package com.gstock.stock.config;
 
-import io.swagger.v3.oas.annotations.OpenAPIDefinition;
-import io.swagger.v3.oas.annotations.info.Info;
-import lombok.RequiredArgsConstructor;
-import org.springdoc.core.models.GroupedOpenApi;
+import io.swagger.v3.oas.models.Components;
+import io.swagger.v3.oas.models.OpenAPI;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@OpenAPIDefinition(
-        info = @Info(title = "Gstock Stock API",
-                description = "Gstock 주식 API 문서",
-                version = "v1"))
-@RequiredArgsConstructor
 @Configuration
 public class SwaggerConfig {
     @Bean
-    public GroupedOpenApi OpenApi() {
-        String[] paths = {"/**"};
+    public OpenAPI openAPI() {
+        return new OpenAPI()
+                .components(new Components())
+                .info(apiInfo());
+    }
 
-        return GroupedOpenApi.builder()
-                .group("Gstock Stock API")
-                .pathsToMatch(paths)
-                .build();
+    private io.swagger.v3.oas.models.info.Info apiInfo() {
+        return new io.swagger.v3.oas.models.info.Info()
+                .title("GStock Stock")					// API 제목
+                .description("GStock Stock API")	// API에 대한 설명
+                .version("1.0.0");
     }
 }

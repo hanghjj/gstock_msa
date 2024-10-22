@@ -14,6 +14,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import reactor.core.publisher.Mono;
 
 import java.util.Arrays;
 import java.util.List;
@@ -21,7 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/comm")
 @AllArgsConstructor
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:8080")
 @Tag(name = "Common", description = "공통 기능 관련 API")
 public class CommonController {
     private final CommonService commonService;
@@ -29,13 +30,13 @@ public class CommonController {
     @GetMapping("/msg/add")
     @Operation(summary = "신규 메세지코드 등록", description = "메세지 코드 신규등록")
     @Tag(name = "Common")
-    public ResponseEntity<MsgCd> insertNewMessage(
+    public Mono<ResponseEntity<MsgCd>> insertNewMessage(
             @Parameter(name = "code", description = "메세지코드") @RequestParam(value = "code") String code,
             @Parameter(name = "massage", description = "메세지") @RequestParam(value = "massage") String massage
     ) throws CustomException {
         MsgCd msgCd = new MsgCd(code, massage);
         commonService.insertMsgCd(msgCd);
-        return ResponseEntity.status(HttpStatus.OK).body(msgCd);
+        return Mono.just(ResponseEntity.status(HttpStatus.OK).body(msgCd));
     }
 
     @GetMapping("/msg/search")

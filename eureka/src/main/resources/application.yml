@@ -1,5 +1,5 @@
 spring:
     application:
-        name:   gstock_gateway
+        name:   gstock_eureka
     profiles:
         active: local  # 기본 프로파일 설정

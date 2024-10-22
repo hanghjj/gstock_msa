@@ -39,13 +39,11 @@ spring:
       hibernate:
         show_sql: true
         use_Sql_comments: true
-  main:
-    allow-bean-definition-overriding: true
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-  thymeleaf:
-    prefix: classpath:/static/
+  cloud:
+    discovery:
+      client:
+        serviceUrl:
+          defaultZone: http://localhost:8761/eureka/
 
 oauth2:
   token:
@@ -66,3 +64,8 @@ feign:
     coreClient:
       url: http://localhost:8082/api/comm
 
+
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui

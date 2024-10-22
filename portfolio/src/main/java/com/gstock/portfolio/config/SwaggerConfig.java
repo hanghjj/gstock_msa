@@ -1,7 +1,8 @@
-package com.gstock.kis.config;
+package com.gstock.portfolio.config;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,10 +15,10 @@ public class SwaggerConfig {
                 .info(apiInfo());
     }
 
-    private io.swagger.v3.oas.models.info.Info apiInfo() {
-        return new io.swagger.v3.oas.models.info.Info()
-                .title("GStock Kis")					// API 제목
-                .description("GStock Kis API")	// API에 대한 설명
+    private Info apiInfo() {
+        return new Info()
+                .title("GStock Portfolio")					// API 제목
+                .description("GStock Portfolio API")	// API에 대한 설명
                 .version("1.0.0");
     }
 }

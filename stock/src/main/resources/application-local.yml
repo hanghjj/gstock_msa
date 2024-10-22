@@ -39,13 +39,13 @@ spring:
       hibernate:
         show_sql: true
         use_Sql_comments: true
+  cloud:
+    discovery:
+      client:
+        serviceUrl:
+          defaultZone: http://localhost:8761/eureka/
   main:
     allow-bean-definition-overriding: true
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-  thymeleaf:
-    prefix: classpath:/static/
 feign:
   client:
     config:
@@ -59,4 +59,8 @@ feign:
     coreClient:
       url: http://localhost:8082/api/comm
     kisClient:
-      url: http://localhost:8081/kis
+      url: http://localhost:8081/api/kis
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
